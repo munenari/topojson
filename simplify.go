@@ -1,8 +1,8 @@
 package topojson
 
 import (
-	geo "github.com/paulmach/go.geo"
-	"github.com/paulmach/go.geo/reducers"
+	"github.com/paulmach/orb"
+	"github.com/paulmach/orb/simplify"
 )
 
 func (t *Topology) simplify() {
@@ -18,12 +18,15 @@ func (t *Topology) simplify() {
 	}
 
 	newArcs := make([][][]float64, 0)
+	s := simplify.VisvalingamThreshold(t.opts.Simplify)
 	for i, arc := range t.Arcs {
-		path := geo.NewPathFromYXSlice(arc)
-		path = reducers.VisvalingamThreshold(path, t.opts.Simplify)
-		points := path.Points()
-		newArc := make([][]float64, len(points))
-		for j, p := range points {
+		ls := make([]orb.Point, len(arc))
+		for i, a := range arc {
+			ls[i] = orb.Point{a[1], a[0]}
+		}
+		ls = s.LineString(ls)
+		newArc := make([][]float64, len(ls))
+		for j, p := range ls {
 			newArc[j] = []float64{p[1], p[0]}
 		}
 
@@ -37,7 +40,7 @@ func (t *Topology) simplify() {
 		if remove {
 			// Zero-length arc, remove it!
 			t.deletedArcs[i] = true
-			t.shiftArcs[i] += 1
+			t.shiftArcs[i]++
 		} else {
 			newArcs = append(newArcs, newArc)
 		}

@@ -117,8 +117,8 @@ func (t *Topology) lineEqual(a, b *arc) bool {
 		if !pointEquals(t.coordinates[ia], t.coordinates[ib]) {
 			return false
 		}
-		ia += 1
-		ib += 1
+		ia++
+		ib++
 	}
 
 	return true
@@ -137,8 +137,8 @@ func (t *Topology) lineEqualReverse(a, b *arc) bool {
 		if !pointEquals(t.coordinates[ia], t.coordinates[jb]) {
 			return false
 		}
-		ia += 1
-		jb -= 1
+		ia++
+		jb--
 	}
 
 	return true
@@ -201,14 +201,14 @@ func (t *Topology) findMinimumOffset(arc *arc) int {
 	minimum := mid
 	minimumPoint := t.coordinates[mid]
 
-	mid += 1
+	mid++
 	for mid < end {
 		point := t.coordinates[mid]
 		if point[0] < minimumPoint[0] || point[0] == minimumPoint[0] && point[1] < minimumPoint[1] {
 			minimum = mid
 			minimumPoint = point
 		}
-		mid += 1
+		mid++
 	}
 
 	return minimum - start

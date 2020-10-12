@@ -39,7 +39,7 @@ func (t *Topology) join() junctionMap {
 			rightIndex := right[currentIndex]
 			if (leftIndex != previousIndex || rightIndex != nextIndex) &&
 				(leftIndex != nextIndex || rightIndex != previousIndex) {
-				junctionCount += 1
+				junctionCount++
 				junctions[currentIndex] = true
 			}
 		} else {
@@ -60,22 +60,22 @@ func (t *Topology) join() junctionMap {
 
 		previous := 0
 		current := indexes[start]
-		start += 1
+		start++
 		next := indexes[start]
 
-		junctionCount += 1
+		junctionCount++
 		junctions[current] = true
 
-		start += 1
+		start++
 		for start <= end {
 			previous = current
 			current = next
 			next = indexes[start]
 			sequence(i, previous, current, next)
-			start += 1
+			start++
 		}
 
-		junctionCount += 1
+		junctionCount++
 		junctions[next] = true
 	}
 
@@ -93,13 +93,13 @@ func (t *Topology) join() junctionMap {
 
 		sequence(i, previous, current, next)
 
-		start += 1
+		start++
 		for start <= end {
 			previous = current
 			current = next
 			next = indexes[start]
 			sequence(i, previous, current, next)
-			start += 1
+			start++
 		}
 	}
 

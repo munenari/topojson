@@ -7,7 +7,7 @@ func (t *Topology) cut() {
 		mid := line.Start
 		end := line.End
 
-		mid += 1
+		mid++
 		for mid < end {
 			if junctions.Has(t.coordinates[mid]) {
 				next := &arc{Start: mid, End: line.End}
@@ -15,7 +15,7 @@ func (t *Topology) cut() {
 				line.Next = next
 				line = next
 			}
-			mid += 1
+			mid++
 		}
 	}
 
@@ -25,7 +25,7 @@ func (t *Topology) cut() {
 		end := ring.End
 		fixed := junctions.Has(t.coordinates[start])
 
-		mid += 1
+		mid++
 		for mid < end {
 			if junctions.Has(t.coordinates[mid]) {
 				if fixed {
@@ -41,7 +41,7 @@ func (t *Topology) cut() {
 					mid = start // restart; we may have skipped junctions
 				}
 			}
-			mid += 1
+			mid++
 		}
 	}
 }
