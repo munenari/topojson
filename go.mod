@@ -1,4 +1,4 @@
-module github.com/munenari/topojson
+module github.com/munenari/topojson/v2
 
 go 1.15
 
